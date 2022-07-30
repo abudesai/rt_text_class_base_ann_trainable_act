@@ -1,0 +1,58 @@
+{
+  "default_fnames": {
+    "def_train_fname": "train.csv",
+    "def_test_fname": "test.csv",
+    "def_schema_fname": "input_schema.json",
+    "preprocessor_fname": "preprocessor.save",
+    "predictions_fname": "predictions.csv",
+    "scoring_fname": "scoring.csv"
+  },
+  "pp_params": {
+    "cat_params": {
+      "max_perc_miss_for_most_freq_impute": 0.1,
+      "forced_missing_perc": 0.03,
+      "rare_perc_threshold": 0.03
+    },
+    "num_params": {
+      "missing_ind_suffix": "_missing",
+      "forced_missing_perc": 0.03
+    },
+    "pp_step_names": {
+      "CUSTOM_TOKENIZER": "custom_tokenizer",
+      "FEATURE_UNION": "feature_union",
+      "TEXT_PIPELINE": "text_pipeline",
+      "TARGET_PIPELINE": "target_pipeline",
+      "TF_IDF": "tf_idf",
+      "SVD": "svd",
+      "COLUMN_SELECTOR": "column_selector",
+      "TEXT_SELECTOR": "column_selector",
+      "TARGET_SELECTOR": "text_selector",
+      "ID_SELECTOR": "id_selector",
+      "DROP_FEATURES": "target_features",
+      "ONE_HOT_ENCODER": "one_hot_encoder",
+      "TARGET_ONE_HOT_ENCODER": "target_one_hot_encoder",
+      "TARGET_DROPPER": "target_dropper",
+      "LABEL_ENCODER": "label_encoder",
+      "FEATURE_DROPPER": "feature_dropper",
+      "ARRAY_TO_DF_CONVERTER": "array_to_df_converter",
+      "TARGET_FEATURE_ADDER": "target_feature_adder",
+      "CLASSIFIER": "classifier",
+      "XYSPLITTER": "xysplitter"
+    }
+  },
+  "data_schema_keys": {
+    "attributes": "attributes",
+    "id_field": "idField",
+    "target_attr_name": "targetField",
+    "categorical": "CATEGORICAL",
+    "numeric": "NUMERIC",
+    "attr_type": "attributeType",
+    "attr_name": "attributeName"
+  },
+  "model_outputs": {
+    "preds_col_name": "predictionFieldName"
+  },
+  "valid_split": 0.1,
+  "max_resample_of_minority_classes": 5,
+  "target_dummy_val": "__target__"
+}
