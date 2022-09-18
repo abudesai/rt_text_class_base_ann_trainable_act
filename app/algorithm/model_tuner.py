@@ -103,9 +103,7 @@ def tune_hyperparameters(data, data_schema, num_trials, hyper_param_path, hpt_re
     
     # get the hpt space (grid) and default hps
     hpt_space = get_hpt_space(hpt_specs)  
-    default_hps = get_default_hps(hpt_specs)  
-    
-    
+    default_hps = get_default_hps(hpt_specs)     
              
     
     # Scikit-optimize objective function
@@ -115,15 +113,14 @@ def tune_hyperparameters(data, data_schema, num_trials, hyper_param_path, hpt_re
             # set random seeds
         utils.set_seeds()   
         # perform train/valid split on the training data 
-        train_data, valid_data = train_test_split(data, test_size=model_cfg['valid_split'])    
-        
-        # balance the target classes    
-        train_data = model_trainer.get_resampled_data(train_data)
-        valid_data = model_trainer.get_resampled_data(valid_data)
+        train_data, valid_data = train_test_split(data, test_size=model_cfg['valid_split'])   
         train_data, valid_data, _  = model_trainer.preprocess_data(train_data, valid_data, data_schema)   
         train_X, train_y = train_data['X'].astype(np.float), train_data['y'].astype(np.float)
-        valid_X, valid_y = valid_data['X'].astype(np.float), valid_data['y'].astype(np.float)       
+        valid_X, valid_y = valid_data['X'].astype(np.float), valid_data['y'].astype(np.float)    
         
+        # balance the targetclasses  
+        train_X, train_y = model_trainer.get_resampled_data(train_X, train_y)
+        valid_X, valid_y = model_trainer.get_resampled_data(valid_X, valid_y) 
         
         """Build a model from this hyper parameter permutation and evaluate its performance"""
         # train model

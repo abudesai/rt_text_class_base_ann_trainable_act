@@ -25,7 +25,8 @@ failure_path = os.path.join(output_path, 'errors', 'train_failure')
 # This algorithm has a single channel of input data called 'training'. Since we run in
 # File mode, the input files are copied to the directory specified here.
 channel_name='training'
-data_path = os.path.join(data_path, channel_name)
+data_path = os.path.join(data_path, channel_name, "textClassificationBaseMainInput")
+
 
 
 # The function to execute the training.
@@ -35,15 +36,17 @@ def train():
         # Read in any hyperparameters that the user defined with algorithm submission
         hyper_parameters = utils.get_hyperparameters(hyper_param_path)
         # Read data
-        train_data = utils.get_data(data_path, data_type="training")   
+        train_data = utils.get_data(data_path)   
         # read data config
         data_schema = utils.get_data_schema(data_schema_path)
         # get trained preprocessor, model, training history 
-        preprocessor, model = model_trainer.get_trained_model(train_data, data_schema, hyper_parameters)        
+        preprocessor, model, history = model_trainer.get_trained_model(train_data, data_schema, hyper_parameters)        
         # Save the processing pipeline   
         pipeline.save_preprocessor(preprocessor, model_path)
         # Save the model 
-        classifier.save_model(model, model_path)    
+        classifier.save_model(model, model_path)  
+        # Save training history
+        classifier.save_training_history(history, model_path)      
         print('Done training.')
     except Exception as e:
         print("error!")

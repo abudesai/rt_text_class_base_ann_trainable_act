@@ -22,7 +22,7 @@ model_wts_fname = "model_wts.save"
 history_fname = "history.json"
 
 
-MODEL_NAME = "text_class_ANN_T"
+MODEL_NAME = "text_class_base_ann_t"
 
 COST_THRESHOLD = float('inf')
 
@@ -116,7 +116,7 @@ class TrainableActivationLayer(Layer):
 
 
 class Classifier():     
-    def __init__(self, D, K, l1_reg=1e-3, l2_reg=1e-3, lr = 1e-2, num_cps=3) -> None:
+    def __init__(self, D, K, l1_reg=1e-3, l2_reg=1e-1, lr = 1e-3, num_cps=2, **kwargs) -> None:
         self.D = D
         self.K = K
         self.l1_reg = np.float(l1_reg)

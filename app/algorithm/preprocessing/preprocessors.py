@@ -51,7 +51,7 @@ class CustomTokenizerWithLimitedVocab(BaseEstimator, TransformerMixin):
         
     def fit(self, data):
         sentences = list(data[self.text_col])
-        
+                
         word2idx = {}
         word_idx_count = {}
         idx2word = []
@@ -101,7 +101,8 @@ class CustomTokenizerWithLimitedVocab(BaseEstimator, TransformerMixin):
         word2idx_small['UNKNOWN'] = new_idx 
         
         self.word2idx_small = word2idx_small
-        self.unknown = new_idx        
+        self.unknown = new_idx   
+          
         return self
     
         
@@ -116,7 +117,7 @@ class CustomTokenizerWithLimitedVocab(BaseEstimator, TransformerMixin):
             new_sentence = " ".join(new_sentence)
             sentences_small.append(new_sentence)
         
-        data[self.text_col] = sentences_small        
+        data[self.text_col] = sentences_small   
         return data
 
 
@@ -238,7 +239,7 @@ class CustomLabelEncoder(BaseEstimator, TransformerMixin):
     
     
     def transform(self, data): 
-        check_val_if_pred = data.loc[0, self.target_col]
+        check_val_if_pred = data.reset_index().loc[0, self.target_col]
         if self.target_col in data.columns and check_val_if_pred != self.dummy_label: 
             data[self.target_col] = self.lb.transform(data[self.target_col])
         return data
@@ -260,8 +261,9 @@ class XYSplitter(BaseEstimator, TransformerMixin):
         
         not_X_cols = [ self.id_col, self.target_col ] 
         X_cols = [ col for col in data.columns if col not in not_X_cols ]        
-        X = data[X_cols].values           
-        return { 'X': X, 'y': y  }
+        X = data[X_cols].values  
+        ids = data[self.id_col]   
+        return { 'X': X, 'y': y, "ids":ids  }
     
         
     

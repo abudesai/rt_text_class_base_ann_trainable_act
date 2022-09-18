@@ -22,7 +22,7 @@ test_pred_file_name = "test_predictions.csv"
 
 # Since we run in File mode, the input files are copied to the directory specified here.
 channel_name='testing'
-data_path = os.path.join(data_path, channel_name)
+data_path = os.path.join(data_path, channel_name, "textClassificationBaseMainInput")
 
 
 # The function to execute the testing.
@@ -30,13 +30,13 @@ def test():
     try:        
         print('Starting test predictions')
         # Read data
-        test_data = utils.get_data(data_path, data_type="testing")   
+        test_data = utils.get_data(data_path)   
         # read data config
         data_schema = utils.get_data_schema(data_schema_path) 
         # instantiate the trained model (does lazy loading)
-        predictor = model_server.ModelServer(model_path)
+        predictor = model_server.ModelServer(model_path, data_schema)
         # make predictions
-        predictions = predictor.predict(test_data, data_schema)
+        predictions = predictor.predict(test_data)
         # save results 
         utils.save_dataframe(predictions, testing_outputs_path, test_pred_file_name)
         print('Done test predictions.')
