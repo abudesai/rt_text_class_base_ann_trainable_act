@@ -130,7 +130,8 @@ def tune_hyperparameters(data, data_schema, num_trials, hyper_param_path, hpt_re
         score = model.evaluate(valid_X, valid_y)[0]  # returns cross-entropy and accuracy, so indexing at 0
         
         # Our optimizing metric is the model loss fn
-        opt_metric = np.round(score, 5)   # returns binary_cross_entropy
+        # adding a small random noise, because scikit-optimize crashes if metric remains unchanged for initial trials
+        opt_metric = np.round(score + np.random.normal(0, 1e-4), 5)   # returns binary_cross_entropy
         if np.isnan(opt_metric) or math.isinf(opt_metric): opt_metric = 1.0e5     # sometimes loss becomes inf, so use a large value
         # create a unique model name for the trial - we add loss into file name 
         # so we can later sort by file names, and get the best score file without reading each file   
