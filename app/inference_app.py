@@ -2,7 +2,7 @@
 # https://github.com/aws/amazon-sagemaker-examples/blob/main/advanced_functionality/scikit_bring_your_own/container/decision_trees/predictor.py
 
 import io
-import pandas as pd
+import pandas as pd, numpy as np
 import json
 import flask
 import traceback
