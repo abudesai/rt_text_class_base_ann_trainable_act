@@ -81,7 +81,7 @@ def infer():
             pred_obj = {}
             pred_obj[id_field_name] = rec[id_field_name]
             pred_obj["label"] = rec["__label"]
-            pred_obj["scores"] = {
+            pred_obj["probabilities"] = {
                 str(k): np.round(v, 5)
                 for k, v in rec.items()
                 if k not in [id_field_name, "__label"]
