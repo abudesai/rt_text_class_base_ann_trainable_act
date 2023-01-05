@@ -15,6 +15,8 @@ from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau, Callbac
 from tensorflow.keras.losses import BinaryCrossentropy, SparseCategoricalCrossentropy
 from tensorflow.nn import softmax
 
+tf.random.set_seed(1)
+np.random.seed(1)
 
 model_params_fname = "model_params.save"
 model_wts_fname = "model_wts.save"

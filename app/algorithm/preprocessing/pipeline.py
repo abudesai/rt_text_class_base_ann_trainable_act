@@ -69,7 +69,7 @@ def get_text_pipeline(pp_params, model_cfg):
             pp_step_names["CUSTOM_TOKENIZER"], 
             preprocessors.CustomTokenizerWithLimitedVocab(
                 text_col = pp_params['document_field'],
-                vocab_size = 5000,
+                vocab_size = 3000,
                 keep_words=[], 
                 start_token=None, 
                 end_token=None            
