@@ -4,6 +4,7 @@ import numpy as np, pandas as pd, random
 import sys, os
 import glob
 import json
+import tensorflow as tf
 
 
 
@@ -12,6 +13,7 @@ def set_seeds(seed_value=42):
         os.environ['PYTHONHASHSEED']=str(seed_value)
         random.seed(seed_value)
         np.random.seed(seed_value)
+        tf.random.set_seed(seed_value)
     else: 
         print(f"Invalid seed value: {seed_value}. Cannot set seeds.")
 

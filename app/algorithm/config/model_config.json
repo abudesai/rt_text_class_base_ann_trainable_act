@@ -1,12 +1,4 @@
 {
-  "default_fnames": {
-    "def_train_fname": "train.csv",
-    "def_test_fname": "test.csv",
-    "def_schema_fname": "input_schema.json",
-    "preprocessor_fname": "preprocessor.save",
-    "predictions_fname": "predictions.csv",
-    "scoring_fname": "scoring.csv"
-  },
   "pp_params": {
     "cat_params": {
       "max_perc_miss_for_most_freq_impute": 0.1,
@@ -48,9 +40,6 @@
     "numeric": "NUMERIC",
     "attr_type": "attributeType",
     "attr_name": "attributeName"
-  },
-  "model_outputs": {
-    "preds_col_name": "predictionFieldName"
   },
   "valid_split": 0.1,
   "max_resample_of_minority_classes": 5,

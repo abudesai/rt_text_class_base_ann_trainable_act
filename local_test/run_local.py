@@ -139,12 +139,18 @@ def load_and_test_algo():
     # make predictions
     predictions = predictor.predict_proba(test_data)
     # save predictions
-    predictions.to_csv(os.path.join(testing_outputs_path, "test_predictions.csv"), index=False)
+    predictions.to_csv(os.path.join(testing_outputs_path, "test_predictions.csv"), index=False)    
+    # local explanations
+    if hasattr(predictor, "has_local_explanations"):
+        # will only return explanations for max 5 rows - will select the top 5 if given more rows
+        local_explanations = predictor.explain_local(test_data)
+    else:
+        local_explanations = None
     # score the results
     test_key = get_test_key()
     results = score(test_key, predictions, data_schema)  
     print("done with predictions")
-    return results
+    return results, local_explanations
 
 
 def get_test_key():
@@ -217,6 +223,15 @@ def save_test_outputs(results, run_hpt, dataset_name):
     print(df)
     file_path_and_name = get_file_path_and_name(run_hpt, dataset_name)
     df.to_csv(file_path_and_name, index=False)
+
+
+
+def save_local_explanations(local_explanations, dataset_name):
+    if local_explanations is not None:
+        fname = f"{model_name}_{dataset_name}_local_explanations.json"
+        file_path_and_name = os.path.join(test_results_path, fname)
+        with open(file_path_and_name, "w") as f:
+            f.writelines(local_explanations)
     
 
 def get_file_path_and_name(run_hpt, dataset_name): 
@@ -239,7 +254,7 @@ def run_train_and_test(dataset_name, run_hpt, num_hpt_trials):
     # train the model and save          
     train_and_save_algo()        
     # load the trained model and get predictions on test data
-    results = load_and_test_algo()        
+    results, local_explanations = load_and_test_algo()        
     
     end = time.time()
     elapsed_time_in_minutes = np.round((end - start)/60.0, 2)
@@ -253,7 +268,7 @@ def run_train_and_test(dataset_name, run_hpt, num_hpt_trials):
                }
     
     print(f"Done with dataset in {elapsed_time_in_minutes} minutes.")
-    return results
+    return results, local_explanations
 
 
 if __name__ == "__main__": 
@@ -264,15 +279,16 @@ if __name__ == "__main__":
     
     datasets = ["clickbait", "drug_reviews", "ecommerce_categories", "fake_job_postings", "hate_speech", 
                 "movie_reviews", "musical_instruments", "newsgroups", "spam_text", "tweet_emotions"]
-    # datasets = ["ecommerce_categories"]
+    datasets = ["clickbait"]
     
     for run_hpt in run_hpt_list:
         all_results = []
         for dataset_name in datasets:        
             print("-"*60)
             print(f"Running dataset {dataset_name}")
-            results = run_train_and_test(dataset_name, run_hpt, num_hpt_trials)
-            save_test_outputs(results, run_hpt, dataset_name)            
+            results, local_explanations = run_train_and_test(dataset_name, run_hpt, num_hpt_trials)
+            save_test_outputs(results, run_hpt, dataset_name)   
+            save_local_explanations(local_explanations, dataset_name)         
             all_results.append(results)
             print("-"*60)
                     

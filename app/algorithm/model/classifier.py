@@ -179,7 +179,7 @@ class Classifier:
 
         # early_stop_callback = EarlyStopping(monitor=early_stop_loss, min_delta = 1e-3, patience=3)
         early_stop_callback = EarlyStoppingAtMinLoss(
-            monitor=early_stop_loss, patience=5, min_epochs=50
+            monitor=early_stop_loss, patience=3, min_epochs=5
         )
         infcost_stop_callback = InfCostStopCallback()
 
@@ -195,7 +195,7 @@ class Classifier:
         )
         return history
 
-    def predict(self, X, verbose=False):
+    def predict_proba(self, X, verbose=False):
         logits = self.model.predict(X, verbose=verbose)
         return softmax(logits).numpy()
 
@@ -234,13 +234,7 @@ def save_model(model, model_path):
 
 
 def load_model(model_path):
-    try:
-        model = Classifier.load(model_path)
-    except:
-        raise Exception(
-            f"""Error loading the trained {MODEL_NAME} model. 
-            Do you have the right trained model in path: {model_path}?"""
-        )
+    model = Classifier.load(model_path)
     return model
 
 

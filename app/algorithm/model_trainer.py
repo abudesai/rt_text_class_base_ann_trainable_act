@@ -68,7 +68,7 @@ def train_model(train_X, train_y, valid_X, valid_y, hyper_params):
         valid_y=valid_y,
         batch_size=32,
         epochs=1000,
-        # verbose = 1,
+        verbose = 1,
     )
 
     return model, history
