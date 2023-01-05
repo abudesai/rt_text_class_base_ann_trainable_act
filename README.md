@@ -1,25 +1,24 @@
 ANN Classifier With Trainable Activation in TensorFlow/Keras for Text Classification - Base problem category as per Ready Tensor specifications.
 
-* tensorflow
-* keras
-* neural network
-* pandas
-* numpy
-* activation
-* python
-* adam optimizer
-* text classification
-* scikit-optimize
-* flask
-* nginx
-* uvicorn
-* docker
-* tf-idf 
-* nltk
+- neural network
+- tf-idf
+- SVD
+- tensorflow
+- keras
+- pandas
+- numpy
+- python
+- text classification
+- scikit-optimize
+- flask
+- nginx
+- uvicorn
+- docker
+- nltk
 
-This Artificial Neural Network (ANN) is comprised of 3 layers, one of which includes a layer with trainable parameters to control the slope of the activation function, that uses the Adam optimizer to evaluate the performance of the model. 
+This Artificial Neural Network (ANN) is comprised of 3 layers, one of which includes a layer with trainable parameters to control the slope of the activation function, that uses the Adam optimizer to evaluate the performance of the model.
 
-The data preprocessing step includes tokenizing the input text, applying a tf-idf vectorizer to the tokenized text, and applying Singular Value Decomposition (SVD) to find the optimal factors coming from the original matrix. In regards to processing the labels, a label encoder is used to turn the string representation of a class into a numerical representation. 
+The data preprocessing step includes tokenizing the input text, applying a tf-idf vectorizer to the tokenized text, and applying Singular Value Decomposition (SVD) to find the optimal factors coming from the original matrix. In regards to processing the labels, a label encoder is used to turn the string representation of a class into a numerical representation.
 
 The Hyperparameter Tuning (HPT) involves finding the optimal values for the L1 and L2 regularization, learning rate for Adam optimmizer, and the number of changepoints for the trainable activation layer.
 

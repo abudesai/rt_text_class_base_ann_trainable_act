@@ -16,19 +16,6 @@ PREPROCESSOR_FNAME = "preprocessor.save"
 
 
 
-'''
-
-PRE-POCESSING STEPS =====>
-
-
-=========== for text (document column) ========
-- 
-
-=========== for target variable ========
-- 
-===============================================
-'''
-
 def get_preprocess_pipeline(pp_params, model_cfg): 
     pp_step_names = model_cfg["pp_params"]["pp_step_names"]        
     text_pipeline = get_text_pipeline(pp_params = pp_params, model_cfg=model_cfg)
